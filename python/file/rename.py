@@ -3,21 +3,13 @@
 import os
 import shutil
 import time
+import re
 
-dir = "./"
 
-if os.path.isdir(dir):
-    print ("Directory is exit")
-else:
-    print ("Directory is not exit,please input right dir....") 
-    time.sleep(5)
-    exit()
-
-filelist = os.listdir(dir)
-
-for f in filelist:
-    if str(f) == 'rename.py':
-        continue
-    NewFile = f.replace("0","")   
-    print NewFile
-    shutil.move(dir+f, dir+NewFile)
+for root, dirs, files in os.walk("./"):
+    for old_file in files:
+        if old_file == 'rename.py':
+            continue
+        new_file = old_file.replace("old","new")   
+        print(new_file)
+        shutil.move(os.path.join(root, old_file), os.path.join(root, new_file))
